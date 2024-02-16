@@ -2,31 +2,34 @@ import { useSelector } from "react-redux";
 import { FaTwitter } from "react-icons/fa";
 import Link from "next/link";
 import { useEffect } from "react";
-import AddTweet from "./AddTweet";
-import { logout } from "../../reducers/users";
+import TweetsByTrendSection from "./Trends/TweetsByTrendSection";
+import { logout } from "../reducers/users";
 import { useDispatch } from "react-redux";
-import TweetsSection from "./TweetsSection";
-import TrendsSection from "./TrendsSection";
-import { initTrends } from "../../reducers/trends";
-export default function TweetPage() {
+import TrendsSection from "../components/Home/TrendsSection";
+import { initTweet } from "../reducers/tweets";
+import InputTrend from "../components/Trends/InputTrend";
+import { useRouter } from "next/router";
+export default function Trends({ trend }) {
     const usersInfos = useSelector((state) => state.users.value);
-    //console.log(usersInfos);
-    const tweets = useSelector((state) => state.tweets.value);
+    const router = useRouter();
+    if (!usersInfos.token) {
+        router.push(`/`);
+    }
     const dispatch = useDispatch();
-    async function getTrends() {
-        const res = await fetch("http://localhost:3000/tweets/getTrends");
+    async function getTweetByTrend() {
+        const res = await fetch(
+            `http://localhost:3000/tweets/getTweetsByTrend/${trend}`
+        );
         const data = await res.json();
-        //console.log(data);
         if (data.result === true) {
-            dispatch(initTrends(data.trends));
-            //console.log("fetch trends", data.trends);
+            dispatch(initTweet(data.tweets[0].tweets));
         } else {
             alert(data.error);
         }
     }
     useEffect(() => {
-        getTrends();
-    }, [tweets]);
+        getTweetByTrend();
+    }, [trend]);
     return (
         <div className="flex flex-grow bg-[#0f172a] h-screen">
             <div className="w-3/12 flex flex-col justify-between border-r border-slate-400">
@@ -44,8 +47,8 @@ export default function TweetPage() {
                         </div>
                     </Link>
                 </div>
-                <div className="w-full bg-slate-900">
-                    <div className="flex gap-2 items-center ">
+                <div>
+                    <div className="flex mb-2 mx-4 gap-2 items-center">
                         <img
                             src={`https://api.dicebear.com/7.x/big-ears-neutral/svg?seed=${usersInfos.username}`}
                             alt="avatar"
@@ -54,8 +57,7 @@ export default function TweetPage() {
                         <div>
                             <div className="flex flex-col">
                                 <span className="text-white text-base font-bold">
-                                    {usersInfos.name.charAt(0).toUpperCase() +
-                                        usersInfos.name.slice(1)}
+                                    {usersInfos.username}
                                 </span>
                                 <span className="text-slate-400">
                                     {`@` + usersInfos.username}
@@ -73,11 +75,11 @@ export default function TweetPage() {
             </div>
             <div className="w-6/12 flex flex-col overflow-scroll py-2">
                 <div className="border-b border-slate-400 px-4 py-8">
-                    <h2 className="text-white font-bold text-2xl ">Home</h2>
-                    <AddTweet />
+                    <h2 className="text-white font-bold text-2xl ">Hashtag</h2>
+                    <InputTrend trend={trend} />
                 </div>
                 <div>
-                    <TweetsSection />
+                    <TweetsByTrendSection trend={trend} />
                 </div>
             </div>
             <div className="w-3/12 flex flex-col justify-between border-l border-gray-500 py-2">

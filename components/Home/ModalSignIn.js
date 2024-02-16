@@ -8,7 +8,7 @@ export default function ModalSignIn({ showModalSignIn, setShowModalSignIn }) {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
 
-    async function handleSubmitSignUp() {
+    async function handleSubmitSignIn() {
         if (username && password) {
             const res = await fetch("http://localhost:3000/users/signin", {
                 method: "POST",
@@ -24,7 +24,13 @@ export default function ModalSignIn({ showModalSignIn, setShowModalSignIn }) {
             const data = await res.json();
 
             if (data.result === true) {
-                dispatch(login({ username: username, token: data.token }));
+                dispatch(
+                    login({
+                        username: username,
+                        token: data.token,
+                        name: data.name,
+                    })
+                );
                 setPassword("");
                 setUsername("");
             } else {
@@ -56,18 +62,20 @@ export default function ModalSignIn({ showModalSignIn, setShowModalSignIn }) {
                         onChange={(e) => setPassword(e.target.value)}
                         className="bg-transparent border border- rounded-sm w-200 py-1 px-2 text-white placeholder:text-slate-400"
                     />
-                    <button
-                        onClick={handleSubmitSignUp}
-                        className="w-200 rounded-full bg-white text-slate-950 font-bold text-sm py-1 px-2"
-                    >
-                        Sign Up
-                    </button>
-                    <button
-                        className="bg-white font-bold text-slate-900 rounded-lg text-base px-4 py-2"
-                        onClick={() => setShowModalSignIn(false)}
-                    >
-                        Close
-                    </button>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={handleSubmitSignIn}
+                            className="w-200 rounded-full bg-sky-500 text-white hover:bg-sky-600 font-bold text-sm py-1 px-2"
+                        >
+                            Sign In
+                        </button>
+                        <button
+                            onClick={() => setShowModalSignIn(false)}
+                            className="w-200 rounded-full bg-white hover:bg-slate-400 text-slate-950 font-bold text-sm py-1 px-2"
+                        >
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         )
