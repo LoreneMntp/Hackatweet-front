@@ -25,7 +25,7 @@ export default function TweetsSection() {
         tweets
 
             .slice()
-            .sort((a, b) => b.createdAt - a.createdAt)
+            .reverse()
             .map((tweet) => {
                 return <Tweet {...tweet} />;
             })
