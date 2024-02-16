@@ -19,7 +19,7 @@ export default function TweetTrend(props) {
     const formatHashtags = props.content.split(/\s+/).map((word, index) => {
         if (word.startsWith("#")) {
             return (
-                <Link href={`/trends/${word}`}>
+                <Link href={`/trends/${word.substring(1)}`}>
                     <span
                         key={index}
                         className="text-sky-400 font-bold cursor-pointer"
