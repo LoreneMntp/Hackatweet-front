@@ -25,6 +25,7 @@ export default function TweetsSection() {
         tweets
 
             .slice()
+        .reverse()
             .map((tweet) => {
                 return <Tweet {...tweet} />;
             })
