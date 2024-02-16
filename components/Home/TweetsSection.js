@@ -22,11 +22,7 @@ export default function TweetsSection() {
 
     return (
         tweets &&
-        tweets
-
-            .slice()
-        .reverse()
-            .map((tweet) => {
+        tweets.map((tweet) => {
                 return <Tweet {...tweet} />;
             })
     );
