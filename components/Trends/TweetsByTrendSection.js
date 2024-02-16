@@ -11,7 +11,7 @@ export default function TweetsByTrendSection(props) {
     return (
         <div>
             {tweets.length > 0 ? (
-                tweets.map((tweet) => (
+                tweets.reverse().map((tweet) => (
                     <TweetTrend
                         key={tweet._id}
                         {...tweet}
