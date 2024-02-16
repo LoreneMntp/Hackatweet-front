@@ -10,16 +10,19 @@ export default function ModalSignIn({ showModalSignIn, setShowModalSignIn }) {
 
     async function handleSubmitSignIn() {
         if (username && password) {
-            const res = await fetch("http://localhost:3000/users/signin", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                }),
-            });
+            const res = await fetch(
+                "https://hackatweet-backend-brown.vercel.app/users/signin",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                    }),
+                }
+            );
 
             const data = await res.json();
 

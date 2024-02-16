@@ -6,7 +6,7 @@ export default function TweetsByTrendSection(props) {
     // Récupérez les données des tweets depuis le state
     const tweets = useSelector((state) => state.tweets.value);
 
-    console.log("DATA TREND SECTION =>", tweets);
+    //console.log("DATA TREND SECTION =>", tweets);
 
     return (
         <div>

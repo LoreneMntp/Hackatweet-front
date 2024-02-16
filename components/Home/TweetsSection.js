@@ -8,7 +8,9 @@ export default function TweetsSection() {
     //console.log(tweets);
     const dispatch = useDispatch();
     async function getTweets() {
-        const res = await fetch("http://localhost:3000/tweets/getTweets");
+        const res = await fetch(
+            "https://hackatweet-backend-brown.vercel.app/tweets/getTweets"
+        );
         const data = await res.json();
         //console.log("data from api", data.tweets);
         dispatch(initTweet(data.tweets));

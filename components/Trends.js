@@ -18,7 +18,7 @@ export default function Trends({ trend }) {
     const dispatch = useDispatch();
     async function getTweetByTrend() {
         const res = await fetch(
-            `http://localhost:3000/tweets/getTweetsByTrend/${trend}`
+            `https://hackatweet-backend-brown.vercel.app/tweets/getTweetsByTrend/${trend}`
         );
         const data = await res.json();
         if (data.result === true) {

@@ -10,17 +10,20 @@ export default function AddTweet() {
     }
 
     async function handleClickAddTweet() {
-        const res = await fetch("http://localhost:3000/tweets/addTweet", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: usersInfos.username,
-                token: usersInfos.token,
-                content: inputTweet,
-            }),
-        });
+        const res = await fetch(
+            "https://hackatweet-backend-brown.vercel.app/tweets/addTweet",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: usersInfos.username,
+                    token: usersInfos.token,
+                    content: inputTweet,
+                }),
+            }
+        );
         const data = await res.json();
 
         if (data.result === true) {

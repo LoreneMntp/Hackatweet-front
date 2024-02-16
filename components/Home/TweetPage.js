@@ -14,7 +14,9 @@ export default function TweetPage() {
     const tweets = useSelector((state) => state.tweets.value);
     const dispatch = useDispatch();
     async function getTrends() {
-        const res = await fetch("http://localhost:3000/tweets/getTrends");
+        const res = await fetch(
+            "https://hackatweet-backend-brown.vercel.app/tweets/getTrends"
+        );
         const data = await res.json();
         //console.log(data);
         if (data.result === true) {

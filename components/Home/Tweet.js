@@ -35,17 +35,20 @@ export default function Tweet(props) {
     });
 
     async function handleDelete() {
-        const res = await fetch("http://localhost:3000/tweets/removeTweet", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: usersInfos.username,
-                token: usersInfos.token,
-                tweetId: props._id,
-            }),
-        });
+        const res = await fetch(
+            "https://hackatweet-backend-brown.vercel.app/tweets/removeTweet",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: usersInfos.username,
+                    token: usersInfos.token,
+                    tweetId: props._id,
+                }),
+            }
+        );
         const data = await res.json();
 
         if (data.result === true) {
@@ -55,17 +58,20 @@ export default function Tweet(props) {
         }
     }
     async function handleClickLikeTweet() {
-        const res = await fetch("http://localhost:3000/tweets/likeTweet", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: usersInfos.username,
-                token: usersInfos.token,
-                tweetId: props._id,
-            }),
-        });
+        const res = await fetch(
+            "https://hackatweet-backend-brown.vercel.app/tweets/likeTweet",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: usersInfos.username,
+                    token: usersInfos.token,
+                    tweetId: props._id,
+                }),
+            }
+        );
         const data = await res.json();
 
         if (data.result === true) {

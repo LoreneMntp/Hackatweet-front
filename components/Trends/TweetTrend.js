@@ -34,22 +34,25 @@ export default function TweetTrend(props) {
     });
 
     async function handleDelete() {
-        const res = await fetch("http://localhost:3000/tweets/removeTweet", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: usersInfos.username,
-                token: usersInfos.token,
-                tweetId: props._id,
-            }),
-        });
+        const res = await fetch(
+            "https://hackatweet-backend-brown.vercel.app/tweets/removeTweet",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: usersInfos.username,
+                    token: usersInfos.token,
+                    tweetId: props._id,
+                }),
+            }
+        );
         const data = await res.json();
 
         if (data.result === true) {
             const res = await fetch(
-                `http://localhost:3000/tweets/getTweetsByTrend/${props.trend}`
+                `https://hackatweet-backend-brown.vercel.app/tweets/getTweetsByTrend/${props.trend}`
             );
             const data = await res.json();
             //console.log("DATA TREND =>", data.tweets);
@@ -64,25 +67,28 @@ export default function TweetTrend(props) {
         }
     }
     async function handleClickLikeTweet() {
-        const res = await fetch("http://localhost:3000/tweets/likeTweet", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: usersInfos.username,
-                token: usersInfos.token,
-                tweetId: props._id,
-            }),
-        });
+        const res = await fetch(
+            "https://hackatweet-backend-brown.vercel.app/tweets/likeTweet",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: usersInfos.username,
+                    token: usersInfos.token,
+                    tweetId: props._id,
+                }),
+            }
+        );
         const data = await res.json();
 
         if (data.result === true) {
             const res = await fetch(
-                `http://localhost:3000/tweets/getTweetsByTrend/${props.trend}`
+                `https://hackatweet-backend-brown.vercel.app/tweets/getTweetsByTrend/${props.trend}`
             );
             const data = await res.json();
-            console.log("DATA TREND =>", data.tweets);
+            //console.log("DATA TREND =>", data.tweets);
             if (data.result === true) {
                 dispatch(initTweet(data.tweets[0].tweets));
                 //console.log("fetch trends", data.trends);
